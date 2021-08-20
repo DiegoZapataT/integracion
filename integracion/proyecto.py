@@ -5,6 +5,6 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return 'Wena los cabros'
+    return 'Viva VTR'
 
 app.run()
