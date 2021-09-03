@@ -1,0 +1,11 @@
+{% macro render(campo) %}
+    <td>{{campo.label}}</td>
+    <dd>{{campo(**kwargs)|safe}}</dd>
+    {%if campo.errors%}
+    <ul>
+        {%for error in campo.errors%}
+            <li>{{error}}</li>
+        {%endfor%}
+    </ul>
+    {%endif%}
+{%endmacro%}
