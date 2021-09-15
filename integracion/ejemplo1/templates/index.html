@@ -23,14 +23,24 @@
              <button type="submit">enviar</button>
          </div>
     </form>
-   
 
-    <footer>
-        <div class="container">
-            <div class="row">
-                <p class="copyrigth text-muted"> &copy; Papafritaa</p>
-            </div>
+    <br>
+
+    <form method="GET">
+        <div class="form-group col-md-4">
+            <label for="categoria">Categoría</label>
+            <select id="categoria" class="form-control">
+            <option selected>Elige...</option>
+            </select>
         </div>
+    </form>
+   
+    <br> <br> <br>
+    
+    <footer>
+            <div class="row">
+                <p class="copyrigth text-muted"> &copy;UCT</p>
+            </div>
     </footer>
 
     <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js')}}"></script>
