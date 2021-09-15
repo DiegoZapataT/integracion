@@ -12,8 +12,8 @@ class CommentForm(Form):
                         [validators.DataRequired(message = 'el email es requerido')
                         #,validators.Email(message='que sea un email valido')
                         ])
-    comment = TextField('cometnario')
+    comment = TextField('comentario')
 
 
-class formularioJSON(Form):
-    categoria = 
+#class formularioJSON(Form):
+#    categoria = 
