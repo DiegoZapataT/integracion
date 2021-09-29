@@ -16,17 +16,13 @@
 
 
 <body>
-    <form method="GET">
-        <div class="form-group col-md-4">
-            <label for="categoria">Categoría</label>
-            <select id="categoria" class="form-control">
-            <option selected>Elige...</option>
-            {%for category in categoria%}
-            <option>{{category}}</option>
-            {%endfor%}
-            </select>
-        </div>
-    </form>
+
+    <div>
+        {%for fech in fecha%}
+        <p>{{fech}}</p>
+        {%endfor%}
+        </select>
+    </div>
 
     <br> <br> <br>
 

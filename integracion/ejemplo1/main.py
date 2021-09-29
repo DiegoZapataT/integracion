@@ -41,6 +41,28 @@ def buscarTitulo():
 
   return render_template('title.html', titulo=titulo_parrafo) #parrafo=parrafo
 
+@app.route('/desarrollo', methods = ['GET','POST'])
+def buscarDesarrollo():
+  desarrollo=[]
+  for x in coleccion.find({},{"documentos"}):
+    for y in x["documentos"]:
+      for z in y["desarrollo"]:
+        desarrollo.append(str(z["id_parrafo"]))
+        desarrollo.append(str(z["titulo_parrafo"]))
+        desarrollo.append(str(z["parrafo"]))
+
+  return render_template('desarrollo.html', desarrollo=desarrollo)
+
+@app.route('/fecha', methods = ['GET','POST'])
+def buscarFecha():
+  fecha=[]
+  for x in coleccion.find({},{"documentos"}):
+    for y in x["documentos"]:
+      fecha.append(str(y["id_documento"]))
+      fecha.append(str(y["fecha"]))
+
+  return render_template('fecha.html', fecha=fecha)
+
 
 if __name__ == '__main__':
         app.run(debug = True, port=9000)
