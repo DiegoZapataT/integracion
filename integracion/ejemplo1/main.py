@@ -29,17 +29,25 @@ def buscarCategoria():
 
   return render_template('category.html', categoria=categoria)
 
-@app.route('/title', methods = ['GET','POST'])
+@app.route('/titulo', methods = ['GET','POST'])
 def buscarTitulo():
   titulo_parrafo=[]
-  #parrafo=[] FALTA AGREGAR PARRAFO
   for x in coleccion.find({},{"documentos"}):
     for y in x["documentos"]:
       for z in y["desarrollo"]:
         titulo_parrafo.append(str(z["titulo_parrafo"]))
-        #parrafo.append(str(z["parrafo"]))
 
-  return render_template('title.html', titulo=titulo_parrafo) #parrafo=parrafo
+  return render_template('titulo.html', titulo=titulo_parrafo) #parrafo=parrafo
+
+@app.route('/parrafo', methods = ['GET','POST'])
+def buscarParrafo():
+  parrafo=[]
+  for x in coleccion.find({},{"documentos"}):
+    for y in x["documentos"]:
+      for z in y["desarrollo"]:
+        parrafo.append(str(z["parrafo"]))
+
+  return render_template('parrafo.html', parrafo=parrafo) #parrafo=parrafo
 
 @app.route('/desarrollo', methods = ['GET','POST'])
 def buscarDesarrollo():

@@ -8,32 +8,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1.0">
     <title>base</title>
 </head>
+
+<h1>Test</h1>
+
+
 <body>
-    <h1>Test</h1>
-    {% from "macros.html" import render %}
+    <div method="GET">
+        {%for parrafo in parrafo%}
+            <h5>{{parrafo}}</h5></div><br>
+        {%endfor%}    
+    </div>
 
-
-    <form method="POST"> 
-        <div>
-           {{render(form.username)}}
-        </div>
-        <div>
-            {{render(form.email)}} 
-        </div>
-             <button type="submit">enviar</button>
-         </div>
-    </form>
 
     <br> <br> <br>
 
     <div>
-        <button onclick="location.href='category'">Seleccionar categoría</button>
-        <button onclick="location.href='titulo'">Seleccionar Titulo del parrafo</button>
-        <button onclick="location.href='parrafo'">Mostrar Parrafo</button>
-        <button onclick="location.href='desarrollo'">Mostrar desarrollo</button>
-        <button onclick="location.href='fecha'">Mostrar fecha</button>
+        <button onclick="location.href='/'">Volver</button>
     </div>
-    
+   
     <br> <br> <br>
     
     <footer>
@@ -42,6 +34,7 @@
             </div>
     </footer>
 
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js')}}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
 </body>
 </html>
