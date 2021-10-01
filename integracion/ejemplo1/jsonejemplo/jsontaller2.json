@@ -1,6 +1,6 @@
 [
   {
-    "id": 1,
+    "_id": 1,
     "categoria": "PALEONTOLOGÍA",
     "desc_categoria": "Noticias de la ciencia natural que estudia e interpreta el pasado de la vida sobre la Tierra a través de los fósiles.",
     "documentos": [
@@ -25,7 +25,7 @@
     ]
   },
   {
-    "id": 2,
+    "_id": 2,
     "categoria": "ASTRONOMÍA",
     "desc_categoria": "Noticias de la ciencia que estudia los cuerpos celestes del universo, incluidos las estrellas, los planetas, sus satélites naturales, los asteroides, cometas y meteoroides, la materia interestelar, entre otros.",
     "documentos": [

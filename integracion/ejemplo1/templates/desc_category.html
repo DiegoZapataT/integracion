@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.min.css') }}">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1.0">
+    <title>base</title>
+</head>
+<h1>Test</h1>
+
+<body>
+    <form method="GET">
+        <div class="form-group col-md-4">
+                    {%for desc in desc_categoria%}
+                    <h3>Descripcion: {{desc}}</h3>
+                    {%endfor%}
+        </div>
+    </form>
+
+    <br> <br> <br>
+
+    <div>
+        <button onclick="location.href='/'">Volver</button>
+    </div>
+   
+    <br> <br> <br>
+    
+    <footer>
+            <div class="row">
+                <p class="copyrigth text-muted"> &copy;UCT</p>
+            </div>
+    </footer>
+
+    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery.js')}}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js')}}"></script>
+</body>
+</html>
