@@ -1,3 +1,5 @@
+#import re
+
 from flask import Flask
 from flask import request
 from flask import render_template
@@ -70,6 +72,40 @@ def buscarFecha():
       fecha.append(str(y["fecha"]))
 
   return render_template('fecha.html', fecha=fecha)
+
+@app.route('/json', methods = ['GET','POST'])
+def buscarJson():
+    json = []
+    ID = int(request.form['ID'])
+    for i in coleccion.find({"_id": ID}):
+        json.append((i))
+
+    return render_template('json.html', json=json)
+
+@app.route('/titu', methods = ['POST'])
+def buscaTitulo():
+    titulo = []
+    id = int(request.form['id'])
+    resp = coleccion.find({"_id":id})
+    for i in resp:
+        i['documentos']
+        for j in i['documentos']:
+            titulo.append((j['titulo']))
+
+
+    return render_template('titu.html', titulo=titulo)
+
+@app.route('/subtitulo', methods = ['POST'])
+def buscaSubtitulo():
+    subtitulo = []
+    id1 = int(request.form['id1'])
+    resp = coleccion.find({"_id":id1})
+    for i in resp:
+        i['documentos']
+        for j in i['documentos']:
+            subtitulo.append((j['subtitulo']))
+
+    return render_template('subtitulo.html', subtitulo=subtitulo)
 
 
 if __name__ == '__main__':
