@@ -1,7 +1,5 @@
-from flask import Flask
-from flask import request
+from flask import Flask, render_template, request, redirect, url_for, flash
 from flask import render_template
-import form
 import pymongo
 
 app =Flask(__name__)
@@ -14,11 +12,7 @@ coleccion = db['plantillas']
 ###############  Rutas  ##################
 @app.route('/', methods = ['GET','POST'])
 def index():
-    coment_form = form.CommentForm(request.form)
-    if request.method == 'POST' and coment_form.validate():
-        print(coment_form.username.data)
-        print(coment_form.email.data)
-    return render_template('index.html', form = coment_form)
+    return render_template('index.html')
 
 @app.route('/wip', methods = ['GET','POST'])
 
@@ -193,10 +187,7 @@ def Document():
   for x in range(len(subtitulo)):
     Document.append(str(id_documento[x])+'\n'+str(titulo[x])+'\n'+str(subtitulo[x])+'\n'+str(fecha[x])+'\n'+str(subtitulo[x])+'\n'+str(desarrollo[x]))
   return Document
-  
-
-
-
+     
 if __name__ == '__main__':
         app.run(debug = True, port=9000)
 
