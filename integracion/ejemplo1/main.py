@@ -1,5 +1,3 @@
-#import re
-
 from flask import Flask
 from flask import request
 from flask import render_template
@@ -15,13 +13,17 @@ coleccion = db['plantillas']
 
 ###############  Rutas  ##################
 @app.route('/', methods = ['GET','POST'])
-
 def index():
     coment_form = form.CommentForm(request.form)
     if request.method == 'POST' and coment_form.validate():
         print(coment_form.username.data)
         print(coment_form.email.data)
     return render_template('index.html', form = coment_form)
+
+@app.route('/wip', methods = ['GET','POST'])
+
+def index_wip():
+    return render_template('index_wip.html')
 
 @app.route('/category', methods = ['GET','POST'])
 def buscarCategori():
