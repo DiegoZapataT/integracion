@@ -56,7 +56,7 @@
             <div class="form-group col-md-4">
                 <label for="tag_doc">Tags documento:</label>
                 <select id="tag_doc" class="form-control">
-                    <option selected>Elige...</option>
+                    <option selected>...</option>
                     {%for key in key_doc%}
                         {%if key != "_id" %}
                             <option>{{key}}</option>
@@ -71,7 +71,7 @@
             <div class="form-group col-md-4">
                 <label for="tag_des">Tags desarrollo:</label>
                 <select id="tag_des" class="form-control">
-                    <option selected>Elige...</option>
+                    <option selected>...</option>
                     {%for key in key_des%}
                         {%if key != "_id" %}
                             <option>{{key}}</option>
@@ -114,6 +114,8 @@
         var data = JSON.parse('{{ data|tojson}}');
 
         $("#tags").change(function(){
+            $("#tag_documento").hide();
+            $("#tag_desarrollo").hide();
             $("#contenedor2").hide();
             $("#contenedor3").hide();
             var seleccion =($('option:selected', $(this)).text());            
@@ -125,6 +127,7 @@
         })
         var doc_tag = data.documentos[0]
         $("#tag_documento").change(function(){
+            $("#tag_desarrollo").hide();
             $("#contenedor2").hide();
             $("#contenedor3").hide();
             var tagsdoc =($('option:selected', $(this)).text());            
