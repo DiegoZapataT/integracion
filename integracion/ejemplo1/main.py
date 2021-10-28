@@ -7,7 +7,14 @@ app =Flask(__name__)
 ###############  Rutas  ##################
 @app.route('/', methods = ['GET','POST'])
 def index():
-    return render_template('index.html')
+  if request.method == 'POST':
+    data,key = buscarJson()
+    key_doc = tag_documento()
+    key_des = tag_desarrollo()
+    return render_template('index.html', data=data,key=key,key_doc=key_doc,key_des=key_des)
+  else:
+    return render_template('index.html', data={},key={},key_doc={}, key_des={})
+
 
 @app.route('/index', methods = ['GET','POST'])
 def index_r():
@@ -59,3 +66,11 @@ def Documen():
 if __name__ == '__main__':
         app.run(debug = True, port=9000)
 
+  # if request.method == 'POST':
+  #       id = request.form['ID']
+  #   tag=[]
+  #   for x in coleccion.find({},{"_id": id}):
+  #     print(x)
+  #   return render_template('index.html' , id = id)
+  # else:  
+  #   return render_template('index.html') 

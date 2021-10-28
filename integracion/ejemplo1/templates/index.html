@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1.0">
     
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
     crossorigin="anonymous">
@@ -13,10 +14,13 @@
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
     crossorigin="anonymous"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="static/css/Editor.min.css">
-    <script src="static/js/Editor.min.js"></script> 
+    <link rel="stylesheet" href="{{url_for('static', filename='css/Editor.min.css')}}">
+
+    <script src="{{url_for('static', filename='js/Editor.min.js')}}"></script>
+    <script src="{{url_for('static', filename='js/JSindex.js')}}"></script>
+    
+    <script></script> 
 
 </head>
 <body>
@@ -25,24 +29,58 @@
     {% from "macros.html" import render %}
 
     <div>
-        <form method="GET">
+        <form action="/" method="POST">
             <p>ID: <br> <input type="number" min="1" name="ID" ></p>
             <input type="submit" value="Enviar">
         </form>
     </div>
-        
-        <br>
+    <br>
 
     <div>
         <form method="GET">
             <div class="form-group col-md-4">
                 <label for="tags">Tags:</label>
                 <select id="tags" class="form-control">
-                <option selected>Elige...</option>
+                    <option selected>Elige...</option>
+                    {%for key in key%}
+                        {%if key != "_id" %}
+                            <option>{{key}}</option>
+                        {% endif %}
+                    {%endfor%}
                 </select>
             </div>
         </form>    
     </div>  
+    <div id="tag_documento">
+        <form method="GET">
+            <div class="form-group col-md-4">
+                <label for="tag_doc">Tags documento:</label>
+                <select id="tag_doc" class="form-control">
+                    <option selected>Elige...</option>
+                    {%for key in key_doc%}
+                        {%if key != "_id" %}
+                            <option>{{key}}</option>
+                        {% endif %}
+                    {%endfor%}
+                </select>
+            </div>
+        </form>    
+    </div> 
+    <div id="tag_desarrollo">
+        <form method="GET">
+            <div class="form-group col-md-4">
+                <label for="tag_des">Tags desarrollo:</label>
+                <select id="tag_des" class="form-control">
+                    <option selected>Elige...</option>
+                    {%for key in key_des%}
+                        {%if key != "_id" %}
+                            <option>{{key}}</option>
+                        {% endif %}
+                    {%endfor%}
+                </select>
+            </div>
+        </form>    
+    </div>         
 
     <br>
 
@@ -51,25 +89,54 @@
 
     <br><br>
     
-    
     <div class="container p-3 my-3 border">
-        <p>Contenedor</p>
+        <p id="contenedor">Contenedor</p>
     </div>
     
-
     <!-- EDITOR DE TEXTO -->
     <div class="container p-3 my-3 border">
         <input type="text" id="RichText"/>
-        <script>
-            $(document).ready(function(){
-                $('#RichText').richText();
-            });
-        </script>
     </div>
     <footer>
             <div class="row">
                 <p class="copyrigth text-muted"> &copy;UCT</p>
             </div>
     </footer>
+
+    <script>
+        $("#tag_documento").hide();
+        $("#tag_desarrollo").hide();
+        
+        var data = JSON.parse('{{ data|tojson}}');
+        var key = JSON.parse('{{key|tojson}}');
+        var key_doc = JSON.parse('{{key_doc|tojson}}');
+        var key_des = JSON.parse('{{key_des|tojson}}');
+
+        $("#tags").change(function(){
+            var seleccion =($('option:selected', $(this)).text());            
+            if (seleccion != 'documentos'){
+                $('#contenedor').text(data[seleccion]);
+            } else{
+                $("#tag_documento").show();
+            }   
+        })
+        var doc_tag = data.documentos[0]
+        $("#tag_documento").change(function(){
+            var tagsdoc =($('option:selected', $(this)).text());            
+            if (tagsdoc != 'desarrollo'){
+                $('#contenedor').text(doc_tag[tagsdoc]);
+            } else {
+                $("#tag_desarrollo").show();
+            }
+        })
+
+        var des_tag = doc_tag.desarrollo[0];
+        $("#tag_desarrollo").change(function(){
+            var tagsdes =($('option:selected', $(this)).text());            
+                $('#contenedor').text(des_tag[tagsdes]);
+        })
+
+    </script>
+
 </body>
 </html>
