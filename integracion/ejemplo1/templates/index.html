@@ -90,7 +90,9 @@
     <br><br>
     
     <div class="container p-3 my-3 border">
-        <p id="contenedor">Contenedor</p>
+        <p id="contenedor1">Contenedor</p>
+        <p id="contenedor2"></p>
+        <p id="contenedor3"></p>
     </div>
     
     <!-- EDITOR DE TEXTO -->
@@ -106,25 +108,28 @@
     <script>
         $("#tag_documento").hide();
         $("#tag_desarrollo").hide();
+        $("#contenedor2").hide();
+        $("#contenedor3").hide();
         
         var data = JSON.parse('{{ data|tojson}}');
-        var key = JSON.parse('{{key|tojson}}');
-        var key_doc = JSON.parse('{{key_doc|tojson}}');
-        var key_des = JSON.parse('{{key_des|tojson}}');
 
         $("#tags").change(function(){
+            $("#contenedor2").hide();
+            $("#contenedor3").hide();
             var seleccion =($('option:selected', $(this)).text());            
             if (seleccion != 'documentos'){
-                $('#contenedor').text(data[seleccion]);
+                $('#contenedor1').text(data[seleccion]);
             } else{
                 $("#tag_documento").show();
             }   
         })
         var doc_tag = data.documentos[0]
         $("#tag_documento").change(function(){
+            $("#contenedor2").hide();
+            $("#contenedor3").hide();
             var tagsdoc =($('option:selected', $(this)).text());            
             if (tagsdoc != 'desarrollo'){
-                $('#contenedor').text(doc_tag[tagsdoc]);
+                $('#contenedor1').text(doc_tag[tagsdoc]);
             } else {
                 $("#tag_desarrollo").show();
             }
@@ -132,9 +137,29 @@
 
         var des_tag = doc_tag.desarrollo[0];
         $("#tag_desarrollo").change(function(){
+            $("#contenedor2").hide();
+            $("#contenedor3").hide();
             var tagsdes =($('option:selected', $(this)).text());            
-                $('#contenedor').text(des_tag[tagsdes]);
+                $('#contenedor1').text(des_tag[tagsdes]);
         })
+
+        $( "#doc" ).click(function() {
+            var doc = data.documentos[0]
+            $('#contenedor1').text(doc['titulo']);
+            $("#contenedor2").show();
+            $('#contenedor2').text(doc['subtitulo']);
+            $("#contenedor3").show();
+            $('#contenedor3').text(doc['fecha']);
+        });
+
+        $( "#des" ).click(function() {
+            $("#contenedor3").hide();
+            var doc = data.documentos[0]
+            var des = doc.desarrollo[0];
+            $('#contenedor1').text(des['titulo_parrafo']);
+            $("#contenedor2").show();
+            $('#contenedor2').text(des['parrafo']);
+        });
 
     </script>
 

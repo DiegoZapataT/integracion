@@ -30,7 +30,7 @@ def buscarTitul():
 
 @app.route('/parrafo', methods = ['GET','POST'])
 def buscarParraf():
-  return render_template('repuestos/parrafo.html', parrafo= buscarParrafo())#parrafo=parrafo
+  return render_template('repuestos/parrafo.html', parrafo= buscarParrafo())
 
 @app.route('/desarrollo', methods = ['GET','POST'])
 def buscarDesarroll():
