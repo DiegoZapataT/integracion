@@ -85,7 +85,8 @@
     <br>
 
     <button type="button" class="btn btn-primary" id="doc">Documentos</button>
-    <button type="button" class="btn btn-primary" id="des">Desarrollo</button>   
+    <button type="button" class="btn btn-primary" id="des">Desarrollo</button>
+    <button type="button" class="btn btn-primary" id="json">Json Completo</button>      
 
     <br><br>
     
@@ -145,6 +146,11 @@
             var tagsdes =($('option:selected', $(this)).text());            
                 $('#contenedor1').text(des_tag[tagsdes]);
         })
+
+        $( "#json" ).click(function() {
+            var doc = data.documentos[0]
+            $('#contenedor1').text('{{data}}');
+        });
 
         $( "#doc" ).click(function() {
             var doc = data.documentos[0]
