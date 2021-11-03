@@ -10,12 +10,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
     crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
-    crossorigin="anonymous"></script>
+    
 
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/Editor.min.css')}}">
+    <link rel="stylesheet" href="/static/css/style.css">
 
     <script src="{{url_for('static', filename='js/Editor.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/JSindex.js')}}"></script>
@@ -24,85 +23,95 @@
 
 </head>
 <body>
-    <h1>Test</h1>
+        {% from "macros.html" import render %}
+    <div style="background-color: #00acf7; padding: 20px;"><h1 style="color: #ffffff;" class="text-center">Proyecto: Editor de texto</h1></div>
+    <hr>
 
-    {% from "macros.html" import render %}
+    <div class="container">
+        <div class="row">
+            <div class="col-4 d-felx flex-column justify-content-center">
+                <div>
+                    <form action="/" method="POST">
+                        <p>ID: <br> <input type="number" min="1" name="ID" ></p>
+                        <input type="submit" value="Enviar">
+                    </form>
+                </div>
+                <br>
 
-    <div>
-        <form action="/" method="POST">
-            <p>ID: <br> <input type="number" min="1" name="ID" ></p>
-            <input type="submit" value="Enviar">
-        </form>
-    </div>
-    <br>
-
-    <div>
-        <form method="GET">
-            <div class="form-group col-md-4">
-                <label for="tags">Tags:</label>
-                <select id="tags" class="form-control">
-                    <option selected>Elige...</option>
-                    {%for key in key%}
-                        {%if key != "_id" %}
-                            <option>{{key}}</option>
-                        {% endif %}
-                    {%endfor%}
-                </select>
+                <div>
+                    <form method="GET">
+                        <div class="form-group col-md-4">
+                            <label for="tags">Tags:</label>
+                            <select id="tags" class="form-control">
+                                <option selected>Elige...</option>
+                                {%for key in key%}
+                                    {%if key != "_id" %}
+                                        <option>{{key}}</option>
+                                    {% endif %}
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </form>    
+                </div>  
+                <div id="tag_documento">
+                    <form method="GET">
+                        <div class="form-group col-md-4">
+                            <label for="tag_doc">Tags documento:</label>
+                            <select id="tag_doc" class="form-control">
+                                <option selected>...</option>
+                                {%for key in key_doc%}
+                                    {%if key != "_id" %}
+                                        <option>{{key}}</option>
+                                    {% endif %}
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </form>    
+                </div> 
+                <div id="tag_desarrollo">
+                    <form method="GET">
+                        <div class="form-group col-md-4">
+                            <label for="tag_des">Tags desarrollo:</label>
+                            <select id="tag_des" class="form-control">
+                                <option selected>...</option>
+                                {%for key in key_des%}
+                                    {%if key != "_id" %}
+                                        <option>{{key}}</option>
+                                    {% endif %}
+                                {%endfor%}
+                            </select>
+                        </div>
+                    </form>    
+                </div>     
+                <hr>	
+                <div class="row ">
+                    <div class="col d-flex justify-content-around" >
+                        <button type="button" class="btn btn-info text-white" id="doc">Documentos</button>
+                        <button type="button" class="btn btn-info text-white" id="des">Desarrollo</button>
+                        <button type="button" class="btn btn-info text-white" id="json">Json Completo</button>
+                    </div>
+                    <div class="row p-3 my-3 border d-flex">
+                        <p id="contenedor1">Documento</p>
+                        <p id="contenedor2"></p>
+                        <p id="contenedor3"></p>
+                    </div>      
+                </div>    
             </div>
-        </form>    
-    </div>  
-    <div id="tag_documento">
-        <form method="GET">
-            <div class="form-group col-md-4">
-                <label for="tag_doc">Tags documento:</label>
-                <select id="tag_doc" class="form-control">
-                    <option selected>...</option>
-                    {%for key in key_doc%}
-                        {%if key != "_id" %}
-                            <option>{{key}}</option>
-                        {% endif %}
-                    {%endfor%}
-                </select>
+            <br>
+            
+            <br><br>
+            
+            
+            
+            <!-- EDITOR DE TEXTO -->
+            <div class="container-xxl col p-3 my-3 border">
+                <input type="text" id="RichText"/>
             </div>
-        </form>    
-    </div> 
-    <div id="tag_desarrollo">
-        <form method="GET">
-            <div class="form-group col-md-4">
-                <label for="tag_des">Tags desarrollo:</label>
-                <select id="tag_des" class="form-control">
-                    <option selected>...</option>
-                    {%for key in key_des%}
-                        {%if key != "_id" %}
-                            <option>{{key}}</option>
-                        {% endif %}
-                    {%endfor%}
-                </select>
-            </div>
-        </form>    
-    </div>         
-
-    <br>
-
-    <button type="button" class="btn btn-primary" id="doc">Documentos</button>
-    <button type="button" class="btn btn-primary" id="des">Desarrollo</button>
-    <button type="button" class="btn btn-primary" id="json">Json Completo</button>      
-
-    <br><br>
-    
-    <div class="container p-3 my-3 border">
-        <p id="contenedor1">Contenedor</p>
-        <p id="contenedor2"></p>
-        <p id="contenedor3"></p>
-    </div>
-    
-    <!-- EDITOR DE TEXTO -->
-    <div class="container p-3 my-3 border">
-        <input type="text" id="RichText"/>
+        </div>
     </div>
     <footer>
             <div class="row">
-                <p class="copyrigth text-muted"> &copy;UCT</p>
+                <p style="color: #999999;" class="copyrigth text-muted"> &copy;UCT</p>
             </div>
     </footer>
 
@@ -171,6 +180,8 @@
         });
 
     </script>
-
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
+    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
+    crossorigin="anonymous"></script>
 </body>
 </html>
