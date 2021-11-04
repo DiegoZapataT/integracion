@@ -1,3 +1,17 @@
-/* #title{background-color: #00acf7; padding: 20px; margin-top: 0%;} */
-body{font-family: 'Open Sans','Helvetica','Arial',sans-serif; background-color: rgba(241,241,241,.44);}
-footer{background-color: #424242;}
+
+body {
+font-family: Arial, Helvetica, sans-serif;
+background-color: #f1f1f1;
+position: relative;
+padding-bottom: 58px;
+min-height: 100vh;
+}
+footer {
+text-align: center;
+background-color: #333;
+color: #fff;
+padding: 20px;
+position: absolute;
+bottom: 0;
+width: 100%;
+}
