@@ -11,22 +11,18 @@
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
     crossorigin="anonymous">
     
-
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="{{url_for('static', filename='css/Editor.min.css')}}">
     <link rel="stylesheet" href="/static/css/style.css">
 
     <script src="{{url_for('static', filename='js/Editor.min.js')}}"></script>
     <script src="{{url_for('static', filename='js/JSindex.js')}}"></script>
-    
-    <script></script> 
-
+        
 </head>
 <body>
         {% from "macros.html" import render %}
     <div style="background-color: #00acf7; padding: 20px;"><h1 style="color: #ffffff;" class="text-center">Proyecto: Editor de texto</h1></div>
-    <hr>
-
+    <br><br>
     <div class="container">
         <div class="row">
             <div class="col-4 d-felx flex-column justify-content-center">
@@ -37,7 +33,6 @@
                     </form>
                 </div>
                 <br>
-
                 <div>
                     <form method="GET">
                         <div class="form-group col-md-4">
@@ -100,12 +95,12 @@
             <br>
             
             <br><br>
-            
-            
-            
+             
             <!-- EDITOR DE TEXTO -->
             <div class="container-xxl col p-3 my-3 border">
-                <input type="text" id="RichText"/>
+                <input type="text" id="RichText"/><br>
+                <input type="button" id="botontext" value="Enviar"><br><br>
+                <div id="text" class="container border"></div>
             </div>
         </div>
     </div>
@@ -154,11 +149,6 @@
                 $('#contenedor1').text(des_tag[tagsdes]);
         })
 
-        $( "#json" ).click(function() {
-            var doc = data.documentos[0]
-            $('#contenedor1').text('{{data}}');
-        });
-
         $( "#doc" ).click(function() {
             var doc = data.documentos[0]
             $('#contenedor1').text(doc['titulo']);
@@ -175,6 +165,17 @@
             $('#contenedor1').text(des['titulo_parrafo']);
             $("#contenedor2").show();
             $('#contenedor2').text(des['parrafo']);
+        });
+
+        $( "#json" ).click(function() {
+            $('#contenedor1').html(
+                data.categoria +'<br><br>'+
+                data.desc_categoria +'<br><br>'+ 
+                data.documentos[0].titulo+'<br><br>'+
+                data.documentos[0].subtitulo+'<br><br>'+
+                data.documentos[0].fecha+'<br><br>'+
+                data.documentos[0].desarrollo[0].titulo_parrafo+'<br><br>'+
+                data.documentos[0].desarrollo[0].parrafo);
         });
 
     </script>
