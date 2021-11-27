@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1.0">
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
     crossorigin="anonymous">
@@ -20,7 +21,7 @@
         
 </head>
 <body>
-        {% from "macros.html" import render %}
+
     <div style="background-color: #00acf7; padding: 20px;"><h1 style="color: #ffffff;" class="text-center">Proyecto: Editor de texto</h1></div>
     <br><br>
     <div class="container">
@@ -80,13 +81,14 @@
                 </div>     
                 <hr>	
                 <div class="row ">
-                    <div class="col d-flex justify-content-around" >
+                    <div class="col d-flex justify-content-around">
                         <button type="button" class="btn btn-info text-white" id="doc">Documentos</button>
                         <button type="button" class="btn btn-info text-white" id="des">Desarrollo</button>
                         <button type="button" class="btn btn-info text-white" id="json">Json Completo</button>
                     </div>
-                    <div class="row p-3 my-3 border d-flex">
-                        <p id="contenedor1">Documento</p>
+                    <div class="draggable" id = "caja">
+                        <br>
+                        <p id="contenedor1"></p>
                         <p id="contenedor2"></p>
                         <p id="contenedor3"></p>
                     </div>      
@@ -97,90 +99,25 @@
             <br><br>
              
             <!-- EDITOR DE TEXTO -->
-            <div class="container-xxl col p-3 my-3 border">
-                <input type="text" id="RichText"/><br>
-                <input type="button" id="botontext" value="Enviar"><br><br>
-                <div id="text" class="container border"></div>
+            <div class="container-xxl col p-3 my-3 border" id='editor'>
+                <input type="text" id="RichText"/>
+                <br>
+                <input type="button" id="botontext" value="Enviar">
+                <br>
             </div>
         </div>
     </div>
+
+    <div  id='data' data-data='{{data|tojson}}'></div>
+
     <footer>
         <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> UCT</p>
     </footer>
 
-    <script>
-        $("#tag_documento").hide();
-        $("#tag_desarrollo").hide();
-        $("#contenedor2").hide();
-        $("#contenedor3").hide();
-        
-        var data = JSON.parse('{{ data|tojson}}');
-
-        $("#tags").change(function(){
-            $("#tag_documento").hide();
-            $("#tag_desarrollo").hide();
-            $("#contenedor2").hide();
-            $("#contenedor3").hide();
-            var seleccion =($('option:selected', $(this)).text());            
-            if (seleccion != 'documentos'){
-                $('#contenedor1').text(data[seleccion]);
-            } else{
-                $("#tag_documento").show();
-            }   
-        })
-        var doc_tag = data.documentos[0]
-        $("#tag_documento").change(function(){
-            $("#tag_desarrollo").hide();
-            $("#contenedor2").hide();
-            $("#contenedor3").hide();
-            var tagsdoc =($('option:selected', $(this)).text());            
-            if (tagsdoc != 'desarrollo'){
-                $('#contenedor1').text(doc_tag[tagsdoc]);
-            } else {
-                $("#tag_desarrollo").show();
-            }
-        })
-
-        var des_tag = doc_tag.desarrollo[0];
-        $("#tag_desarrollo").change(function(){
-            $("#contenedor2").hide();
-            $("#contenedor3").hide();
-            var tagsdes =($('option:selected', $(this)).text());            
-                $('#contenedor1').text(des_tag[tagsdes]);
-        })
-
-        $( "#doc" ).click(function() {
-            var doc = data.documentos[0]
-            $('#contenedor1').text(doc['titulo']);
-            $("#contenedor2").show();
-            $('#contenedor2').text(doc['subtitulo']);
-            $("#contenedor3").show();
-            $('#contenedor3').text(doc['fecha']);
-        });
-
-        $( "#des" ).click(function() {
-            $("#contenedor3").hide();
-            var doc = data.documentos[0]
-            var des = doc.desarrollo[0];
-            $('#contenedor1').text(des['titulo_parrafo']);
-            $("#contenedor2").show();
-            $('#contenedor2').text(des['parrafo']);
-        });
-
-        $( "#json" ).click(function() {
-            $('#contenedor1').html(
-                data.categoria +'<br><br>'+
-                data.desc_categoria +'<br><br>'+ 
-                data.documentos[0].titulo+'<br><br>'+
-                data.documentos[0].subtitulo+'<br><br>'+
-                data.documentos[0].fecha+'<br><br>'+
-                data.documentos[0].desarrollo[0].titulo_parrafo+'<br><br>'+
-                data.documentos[0].desarrollo[0].parrafo);
-        });
-
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" 
     integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" 
     crossorigin="anonymous"></script>
+
 </body>
+<script type="text/javascript" src="{{ url_for('static', filename='js/Function.js') }}"></script>
 </html>

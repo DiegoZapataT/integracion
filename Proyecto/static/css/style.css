@@ -1,12 +1,12 @@
 
-body {
+body{
 font-family: Arial, Helvetica, sans-serif;
 background-color: #f1f1f1;
 position: relative;
 padding-bottom: 58px;
 min-height: 100vh;
 }
-footer {
+footer{
 text-align: center;
 background-color: #333;
 color: #fff;
@@ -14,4 +14,8 @@ padding: 20px;
 position: absolute;
 bottom: 0;
 width: 100%;
+}
+#caja{
+    cursor: move;
+    border-style: ridge;
 }
