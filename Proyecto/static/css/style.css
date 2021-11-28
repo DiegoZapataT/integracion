@@ -19,3 +19,9 @@ width: 100%;
     cursor: move;
     border-style: ridge;
 }
+
+#contenedoreditor {
+    text-align: center;
+    float: right;
+    width: 65%;
+  }

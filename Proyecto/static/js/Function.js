@@ -6,15 +6,15 @@ $("#contenedor3").hide();
 
 var data = JSON.parse(document.getElementById("data").dataset.data);
 
-$(".draggable").draggable({
-    revert: true,
-    start: function(event, ui) {
-        $(this).fadeTo('fast', 0.5);
-    },
-    stop: function(event, ui) {
-        $(this).fadeTo(0, 1);
-    }
-});
+// $(".draggable").draggable({
+//     revert: true,
+//     start: function(event, ui) {
+//         $(this).fadeTo('fast', 0.5);
+//     },
+//     stop: function(event, ui) {
+//         $(this).fadeTo(0, 1);
+//     }
+// });
 
 $("#tags").change(function(){
     $("#tag_documento").hide();
