@@ -1,10 +1,9 @@
+var data = JSON.parse(document.getElementById("data").dataset.data);
 
 $("#tag_documento").hide();
 $("#tag_desarrollo").hide();
 $("#contenedor2").hide();
 $("#contenedor3").hide();
-
-var data = JSON.parse(document.getElementById("data").dataset.data);
 
 // $(".draggable").draggable({
 //     revert: true,
@@ -16,6 +15,41 @@ var data = JSON.parse(document.getElementById("data").dataset.data);
 //     }
 // });
 
+var editor = new FroalaEditor('#editor')
+var dragCallback = function (e) {
+e.dataTransfer.setData('Text', this.id);
+};
+
+document.querySelector('#caja').addEventListener('dragstart', dragCallback);
+new FroalaEditor('div#froala-editor', {
+events: {
+initialized: function () {
+var editor = this;
+editor.events.on('drop', function (dropEvent) {
+    editor.markers.insertAtPoint(dropEvent.originalEvent);
+    var $marker = editor.$el.find('.fr-marker');
+    $marker.replaceWith(FroalaEditor.MARKERS);
+    editor.selection.restore();
+
+    if (!editor.undo.canDo()) editor.undo.saveStep();
+
+    if (dropEvent.originalEvent.dataTransfer.getData('Text') == 'caja') {
+    editor.html.insert($('#caja').text());    
+    }
+    editor.undo.saveStep();
+
+    dropEvent.preventDefault();
+    dropEvent.stopPropagation();
+    return false;
+}, true);}}
+})
+
+$("#save").submit(function(event) {
+    var texto = $("#texto").text();
+    alert(texto)
+    event.preventDefault();
+  });  
+ 
 $("#tags").change(function(){
     $("#tag_documento").hide();
     $("#tag_desarrollo").hide();
@@ -77,3 +111,7 @@ $( "#json" ).click(function() {
         data.documentos[0].desarrollo[0].titulo_parrafo+'<br><br>'+
         data.documentos[0].desarrollo[0].parrafo);
 });
+
+
+  
+

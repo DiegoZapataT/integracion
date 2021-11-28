@@ -1,9 +1,5 @@
-from flask import Flask, render_template, request, redirect, url_for, flash
-from flask import render_template
+from flask import request
 import pymongo
-
-from pymongo import database
-from backend import *
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
@@ -36,3 +32,7 @@ def buscarJson():
     for i in data.keys():
       key.append(i) 
   return data,key
+
+
+
+  

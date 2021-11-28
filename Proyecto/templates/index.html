@@ -8,17 +8,15 @@
     
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" 
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" 
     crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
     
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='css/Editor.min.css')}}">
     <link rel="stylesheet" href="/static/css/style.css">
 
-    <script src="{{url_for('static', filename='js/Editor.min.js')}}"></script>
-    <script src="{{url_for('static', filename='js/JSindex.js')}}"></script>
         
 </head>
 <body>
@@ -81,7 +79,7 @@
                     </form>    
                 </div>     
                 <hr>	
-                <div class="row ">
+                <div class="row">
                     <div class="col d-flex justify-content-around">
                         <button type="button" class="btn btn-info text-white" id="doc">Documentos</button>
                         <button type="button" class="btn btn-info text-white" id="des">Desarrollo</button>
@@ -95,14 +93,16 @@
                     </div>      
                 </div>    
             </div>
-            <br>
-            
-            <br><br>
-             
+            <br><br><br>
+
             <!-- EDITOR DE TEXTO -->
-            <div id = "contenedoreditor">
-                <div id="froala-editor"></div>
-                <button id='save'>Save</button>
+            <div id="contenedoreditor">
+                <form action="/save" method="POST">
+                <div id="froala-editor">
+                    <p id='texto' name="texto"></p>
+                </div>
+                    <input type="submit" value="Enviar Texto">
+                </form>
             </div>
         </div>
     </div>
@@ -118,38 +118,8 @@
     crossorigin="anonymous"></script>
 
 </body>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/Function.js') }}"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
-<script>
-    var editor = new FroalaEditor('#editor')
 
-    var dragCallback = function (e) {
-    e.dataTransfer.setData('Text', this.id);
-  };
-
-document.querySelector('#caja').addEventListener('dragstart', dragCallback);
-new FroalaEditor('div#froala-editor', {
-events: {
-    initialized: function () {
-    var editor = this;
-
-    editor.events.on('drop', function (dropEvent) {
-        editor.markers.insertAtPoint(dropEvent.originalEvent);
-        var $marker = editor.$el.find('.fr-marker');
-        $marker.replaceWith(FroalaEditor.MARKERS);
-        editor.selection.restore();
-
-        if (!editor.undo.canDo()) editor.undo.saveStep();
-
-        if (dropEvent.originalEvent.dataTransfer.getData('Text') == 'caja') {
-        editor.html.insert($('#caja').text());    
-        }
-        editor.undo.saveStep();
-
-        dropEvent.preventDefault();
-        dropEvent.stopPropagation();
-        return false;
-    }, true);}}
-})
-</script>
 </html>
