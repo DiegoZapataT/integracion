@@ -1,0 +1,25 @@
+[{
+  "_id": 4,
+  "categoria": "Ejemplo",
+  "desc_categoria": "Demostración.",
+  "documentos": [
+    {
+      "_id": 1000,
+      "titulo": "Demostración.",
+      "subtitulo": "Demostración.",
+      "fecha": "02/12/2021",
+      "desarrollo": [
+        {
+          "_id": 10000,
+          "titulo_parrafo": "Demostración.",
+          "parrafo": "Demostración."
+        },
+        {
+          "_id": 10001,
+          "titulo_parrafo": "Demostración.",
+          "parrafo": "Demostración."
+        }
+      ]
+    }
+  ]
+}]
