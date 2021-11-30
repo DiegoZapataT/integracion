@@ -13,34 +13,28 @@ $("#tag_desarrollo").hide();
 //     }
 // });
 
+//CREA EDITOR DE TEXTO CON DRAG & DROP
 var editor = new FroalaEditor('#editor')
 var dragCallback = function (e) {
 e.dataTransfer.setData('Text', this.id);
 };
 
 document.querySelector('#caja').addEventListener('dragstart', dragCallback);
-new FroalaEditor('div#froala-editor', { 
-events: {
-initialized: function () {
-var editor = this;
-editor.events.on('drop', function (dropEvent) {
-    editor.markers.insertAtPoint(dropEvent.originalEvent);
-    var $marker = editor.$el.find('.fr-marker');
-    $marker.replaceWith(FroalaEditor.MARKERS);
-    editor.selection.restore();
-
-    if (!editor.undo.canDo()) editor.undo.saveStep();
-
-    if (dropEvent.originalEvent.dataTransfer.getData('Text') == 'caja') {
-        editor.html.insert($('#caja').text());    
-    }
-    editor.undo.saveStep();
-    dropEvent.preventDefault();
-    dropEvent.stopPropagation();
-    return false;
-}, true);}},
-
+new FroalaEditor('div#froala-editor', {
+    documentReady: true,
+    events: {   
+    initialized: function () {
+        var editor = this;
+        editor.events.on('drop', function (dropEvent) {
+            editor.markers.insertAtPoint(dropEvent.originalEvent);
+            if (dropEvent.originalEvent.dataTransfer.getData('Text') == 'caja') {
+                editor.html.insert($('#caja').text());    
+            }
+            return false;
+        },true);
+    }},
 })
+
 
 function descargarJson(obj,name){
     var dataStr = "data:text/json;charset=utf-8,"+ encodeURIComponent(obj);

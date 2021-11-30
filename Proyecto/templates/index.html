@@ -116,8 +116,8 @@
                     <div id="froala-editor">
                         <p></p>
                     </div>
-                        <input id= 'Tojson' type="button" value="To Json">
-                        <button id='guardar'class="btn btn-secondary">Guardar</button> 
+                        <button id='guardar'class="btn btn-secondary">Guardar como JSON</button> 
+                        <button id='Tojson'class="btn btn-secondary">Descargar como JSON</button> 
                 </form>
             </div>
         </div>
@@ -137,11 +137,6 @@
 
 </body>
 <script type="text/javascript" src="https://raw.githack.com/eKoopmans/html2pdf/master/dist/html2pdf.bundle.js"></script>
-<script>
-    new FroalaEditor('div#froala-editor', {
-      toolbarButtons: ['getPDF']
-    })
-</script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/Function.js') }}"></script>
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
