@@ -1,7 +1,9 @@
-from flask import Flask, render_template, request,redirect, url_for
+from typing import Text
+from flask import Flask, render_template,request,redirect, url_for
 from flask import render_template
 from backend import *
 import json
+
 
 app =Flask(__name__)
 
@@ -16,11 +18,11 @@ def index():
   else:
     return render_template('index.html', data={},key={},key_doc={}, key_des={})
 
-@app.route('/save', methods=['GET','POST'])
+@app.route('/save', methods=['POST'])
 def save():
-  texto = request.form['texto']
+  texto = request.json
   print(texto)
-  return redirect(url_for("index"))
+  return 'Guardado'
 
 @app.route('/json', methods=['GET','POST'])
 def ReceiveJson():
