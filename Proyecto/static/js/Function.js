@@ -13,46 +13,115 @@ $("#tag_desarrollo").hide();
 //     }
 // });
 
-var editor = new FroalaEditor('#textarea#froala-editor')
+var editor = new FroalaEditor('#editor')
 var dragCallback = function (e) {
 e.dataTransfer.setData('Text', this.id);
 };
 
 document.querySelector('#caja').addEventListener('dragstart', dragCallback);
-var editor = new FroalaEditor('textarea#froala-editor', { 
-    events: {
-    initialized: function () {
-    editor.events.on('drop', function (dropEvent) {
-        editor.markers.insertAtPoint(dropEvent.originalEvent);
-        var $marker = editor.$el.find('.fr-marker');
-        $marker.replaceWith(FroalaEditor.MARKERS);
-        editor.selection.restore();
-        if (!editor.undo.canDo()) {
-            editor.undo.saveStep();
-        }   
-        if (dropEvent.originalEvent.dataTransfer.getData('Text') == 'caja') {
-            editor.html.insert($('#caja').text());    
-        }
-        editor.undo.saveStep();
+new FroalaEditor('div#froala-editor', { 
+events: {
+initialized: function () {
+var editor = this;
+editor.events.on('drop', function (dropEvent) {
+    editor.markers.insertAtPoint(dropEvent.originalEvent);
+    var $marker = editor.$el.find('.fr-marker');
+    $marker.replaceWith(FroalaEditor.MARKERS);
+    editor.selection.restore();
 
-        dropEvent.preventDefault();
-        dropEvent.stopPropagation();
-        return false;
-    }, true);}}
+    if (!editor.undo.canDo()) editor.undo.saveStep();
+
+    if (dropEvent.originalEvent.dataTransfer.getData('Text') == 'caja') {
+        editor.html.insert($('#caja').text());    
+    }
+    editor.undo.saveStep();
+    dropEvent.preventDefault();
+    dropEvent.stopPropagation();
+    return false;
+}, true);}},
+
 })
 
-$("#save").on('submit', function(event) {
+function descargarJson(obj,name){
+    var dataStr = "data:text/json;charset=utf-8,"+ encodeURIComponent(obj);
+    var downloadNode = document.createElement('a');
+    downloadNode.setAttribute("href", dataStr);
+    downloadNode.setAttribute("download", name + ".json");
+    document.body.appendChild(downloadNode);//para firefox
+    downloadNode.click();
+    downloadNode.remove();
+}
+
+$("#Tojson").click(function() {
+    var texto = []
+    for (let node of document.getElementById("froala-editor").getElementsByTagName("P")) {  
+        texto.push(node.textContent);
+        console.log(node.textContent);
+    }
+    var titulo = texto[1].split("/n",1).toString();
+    var titulodoc = titulo;
+    for(var i = 0; i < titulo.split(" ").length; i++){
+        titulodoc = titulodoc.replace(" ","_");
+    } 
+    var cuerpo = [];
+    for (let i = 2; i < texto.length; i++) {
+        cuerpo.push(texto[i]); 
+    }
+    var dat = []
+    var doocument={}
+    doocument["Title"]=titulo;
+    doocument["Body"]= cuerpo;
+    dat.push(doocument);
+    // console.log(texto);
+    // console.log(cuerpo);
+    // console.log(titulo);
+    // console.log(titulodoc);
+    
+    var jdon = JSON.stringify(dat);
+    
+    descargarJson(jdon,titulodoc);
+  });  
+
+
+  $("#save").on('submit', function(event) {
     event.preventDefault();    
-    var texto = $("<div/>").html($('#froala-editor').val()).text();
-    var data = {texto: texto};
+    var texto = []
+    for (let node of document.getElementById("froala-editor").getElementsByTagName("P")) {  
+        texto.push(node.textContent);
+    }
+    var titulo = texto[1].toString();
+    var cuerpo = [];
+    for (let i = 2; i < texto.length; i++) {
+        cuerpo.push(texto[i]); 
+    }
+    var dat = []
+    var doocument={}
+    doocument["Title"]=titulo;
+    doocument["Body"]= cuerpo;
+    dat.push(doocument);
     fetch("/save", {
         method: 'POST',
-        body: JSON.stringify(data),
+        body: JSON.stringify(dat),
         headers:{
           'Content-Type': 'application/json'
         }
       })
 });
+
+
+
+// $("#save").on('submit', function(event) {
+//     event.preventDefault();    
+//     var texto = $("<div/>").html($('#froala-editor').val()).text();
+//     var data = {texto: texto};
+//     fetch("/save", {
+//         method: 'POST',
+//         body: JSON.stringify(data),
+//         headers:{
+//           'Content-Type': 'application/json'
+//         }
+//       })
+// });
 
 $("#formjson").on('submit', function(event) {
     event.preventDefault();    

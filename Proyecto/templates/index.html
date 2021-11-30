@@ -113,12 +113,15 @@
             <!-- EDITOR DE TEXTO -->
             <div id="contenedoreditor">
                 <form id='save'>
-                    <textarea id="froala-editor"></textarea>
-                    <button id='guardar'class="btn btn-secondary">Guardar</button>    
+                    <div id="froala-editor">
+                        <p></p>
+                    </div>
+                        <input id= 'Tojson' type="button" value="To Json">
+                        <button id='guardar'class="btn btn-secondary">Guardar</button> 
                 </form>
             </div>
         </div>
-    </div>
+    </div>  
 
     <div  id='data' data-data='{{data|tojson}}'></div>
 
