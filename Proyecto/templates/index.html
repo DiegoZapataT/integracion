@@ -92,13 +92,13 @@
                     </div>   
                     <div>
                         <br>
-                        <form action="/json" method="post" enctype="multipart/form-data" target="_blank">
+                        <form enctype="multipart/form-data" id = "formjson">
 
                             <p>
                         
                             Importar Json:
                         
-                            <input type="file" name="archivosubido">
+                            <input type="file" name="archivosubido" id = "inputjson">
                         
                             <input type="submit" value="Enviar datos">
                         
@@ -112,7 +112,7 @@
 
             <!-- EDITOR DE TEXTO -->
             <div id="contenedoreditor">
-                <form id='save' method="post">
+                <form id='save'>
                     <textarea id="froala-editor"></textarea>
                     <button id='guardar'class="btn btn-secondary">Guardar</button>    
                 </form>
