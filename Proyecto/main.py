@@ -21,7 +21,10 @@ def index():
 @app.route('/save', methods=['POST'])
 def save():
   texto = request.json
-  print(texto)
+  if isinstance(texto, list):
+    coleccion.insert_many(texto)  
+  else:
+    coleccion.insert_one(texto)
   return 'Guardado'
 
 @app.route('/json', methods=['GET','POST'])

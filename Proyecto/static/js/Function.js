@@ -57,11 +57,8 @@ $("#save").on('submit', function(event) {
 $("#formjson").on('submit', function(event) {
     event.preventDefault();    
     var formData = new FormData();
-
     var fileField = document.querySelector("input[type='file']");
-
     formData.append('archivosubido', fileField.files[0]);
-
     fetch("/json", {
         method: 'POST',
         body: formData
