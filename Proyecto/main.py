@@ -1,4 +1,5 @@
 from typing import Text
+from bson.objectid import ObjectId
 from flask import Flask, render_template,request,redirect, url_for
 from flask import render_template
 from backend import *
@@ -17,6 +18,14 @@ def index():
     return render_template('index.html', data=data,key=key,key_doc=key_doc,key_des=key_des)
   else:
     return render_template('index.html', data={},key={},key_doc={}, key_des={})
+
+@app.route('/delete', methods=['POST'])
+def eliminar():
+  Id = request.json
+  query = {"_id": ObjectId(Id["IDdelete"])}
+  coleccion.delete_one(query)
+  
+  return 'Eliminado'
 
 @app.route('/save', methods=['POST'])
 def save():

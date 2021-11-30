@@ -50,7 +50,6 @@ $("#Tojson").click(function() {
     var texto = []
     for (let node of document.getElementById("froala-editor").getElementsByTagName("P")) {  
         texto.push(node.textContent);
-        console.log(node.textContent);
     }
     var titulo = texto[1].split("/n",1).toString();
     var titulodoc = titulo;
@@ -103,19 +102,21 @@ $("#Tojson").click(function() {
 });
 
 
+$("#delete").on('submit', function(event) {
+    event.preventDefault();    
+    console.log(document.querySelector("input[id='delete']").value);
+    var id = document.querySelector("input[id='delete']").value
+    
+    fetch("/delete", {
+        method: 'POST',
+        body: JSON.stringify({"IDdelete":id}),
+        headers:{
+            'Content-Type': 'application/json'
+          }
+          
 
-// $("#save").on('submit', function(event) {
-//     event.preventDefault();    
-//     var texto = $("<div/>").html($('#froala-editor').val()).text();
-//     var data = {texto: texto};
-//     fetch("/save", {
-//         method: 'POST',
-//         body: JSON.stringify(data),
-//         headers:{
-//           'Content-Type': 'application/json'
-//         }
-//       })
-// });
+      })
+});
 
 $("#formjson").on('submit', function(event) {
     event.preventDefault();    
