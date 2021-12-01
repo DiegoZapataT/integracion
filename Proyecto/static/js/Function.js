@@ -75,6 +75,31 @@ $("#Tojson").click(function() {
     descargarJson(jdon,titulodoc);
   });  
 
+  function descargarODT(obj,name){
+    var dataStr = "data:text/json;charset=utf-8,"+ encodeURIComponent(obj);
+    var downloadNode = document.createElement('a');
+    downloadNode.setAttribute("href", dataStr);
+    downloadNode.setAttribute("download", name + ".odt");
+    document.body.appendChild(downloadNode);//para firefox
+    downloadNode.click();
+    downloadNode.remove();
+}
+$("#ODT").click(function() {
+    var texto = []
+    for (let node of document.getElementById("froala-editor").getElementsByTagName("P")) {  
+        texto.push(node.textContent);
+        console.log(node.textContent);
+    }
+    var titulo = texto[1].split("/n",1).toString();
+    var titulodoc = titulo;
+    for(var i = 0; i < titulo.split(" ").length; i++){
+        titulodoc = titulodoc.replace(" ","_");
+    }
+    
+    var jdon = JSON.stringify(texto);
+    
+    descargarODT(jdon,titulodoc);
+});
 
   $("#save").on('submit', function(event) {
     event.preventDefault();    
