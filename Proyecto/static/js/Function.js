@@ -203,7 +203,7 @@ $("#deletebutton").click(function() {
             $("#tag_desarrollo").remove();
         } 
     }else if(op='titulo_parrafo' || op=='parrafo'){
-        $("#tags_desarrollo option:selected").remove();   
+        $("#tag_desarrollo option:selected").remove();   
     }
     $("#contenedor").text('');
     toastr.info('Tag eliminado con exito')
