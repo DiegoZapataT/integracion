@@ -138,8 +138,6 @@ $("#delete").on('submit', function(event) {
         headers:{
             'Content-Type': 'application/json'
           }
-          
-
       })
 });
 
@@ -193,6 +191,24 @@ $("#deletebutton").click(function() {
         $("#tags option:selected").remove();    
     }else{
         $("#tag_documento option:selected").remove();   
+    }
+    $("#contenedor").text('');
+});
+
+$("#deletebutton").click(function() {
+    if(op == 'categoria' || op == 'desc_categoria' ||op == 'documentos'){
+        $("#tags option:selected").remove();
+        if(op == 'documentos'){
+            $("#tag_documento").remove();
+            $("#tag_desarrollo").remove();
+        }
+    }else if(op =='titulo'|| op=='subtitulo' || op=='fecha'||op=='desarrollo' ){
+        $("#tag_documento option:selected").remove();   
+        if(op =='desarrollo'){
+            $("#tag_desarrollo").remove();
+        } 
+    }else if(op='titulo_parrafo' || op=='parrafo'){
+        $("#tags_desarrollo option:selected").remove();   
     }
     $("#contenedor").text('');
 });
