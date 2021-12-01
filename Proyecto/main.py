@@ -1,6 +1,5 @@
-from typing import Text
 from bson.objectid import ObjectId
-from flask import Flask, render_template,request,redirect, url_for
+from flask import Flask, render_template,request
 from flask import render_template
 from backend import *
 import json
@@ -15,15 +14,15 @@ def index():
     data,key = buscarJson()
     key_doc = tag_documento()
     key_des = tag_desarrollo()
-    return render_template('index.html', data=data,key=key,key_doc=key_doc,key_des=key_des)
+    return render_template('index.html', ID=ID(),data=data,key=key,key_doc=key_doc,key_des=key_des)
   else:
-    return render_template('index.html', data={},key={},key_doc={}, key_des={})
+    return render_template('index.html', ID=ID(),data={},key={},key_doc={}, key_des={})
 
 @app.route('/delete', methods=['POST'])
 def eliminar():
   Id = request.json
   query = {"_id": ObjectId(Id["IDdelete"])}
-  coleccion.delete_one(query)
+  textos.delete_one(query)
   
   return 'Eliminado'
 
@@ -31,12 +30,12 @@ def eliminar():
 def save():
   texto = request.json
   if isinstance(texto, list):
-    coleccion.insert_many(texto)  
+    textos.insert_many(texto)  
   else:
-    coleccion.insert_one(texto)
+    textos.insert_one(texto)
   return 'Guardado'
 
-@app.route('/json', methods=['GET','POST'])
+@app.route('/json', methods=['POST'])
 def ReceiveJson():
   jsonA = request.files['archivosubido']
   jsonA.save('archive.json', buffer_size=16384)

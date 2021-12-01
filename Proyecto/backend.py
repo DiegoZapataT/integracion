@@ -5,6 +5,7 @@ myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 
 db = myclient['arquetipos']
 coleccion = db['plantillas']
+textos = db['Textos']
 
 def tag_documento():
   ID = int(request.form['ID'])
@@ -32,6 +33,10 @@ def buscarJson():
     for i in data.keys():
       key.append(i) 
   return data,key
+
+def ID():
+  ID = coleccion.find().distinct('_id') 
+  return",".join( repr(i) for i in ID).split(',') 
 
 
 

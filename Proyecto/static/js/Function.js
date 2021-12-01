@@ -3,15 +3,20 @@ var data = JSON.parse(document.getElementById("data").dataset.data);
 $("#tag_documento").hide();
 $("#tag_desarrollo").hide();
 
-// $(".draggable").draggable({
-//     revert: true,
-//     start: function(event, ui) {
-//         $(this).fadeTo('fast', 0.5);
-//     },
-//     stop: function(event, ui) {
-//         $(this).fadeTo(0, 1);
-//     }
-// });
+
+toastr.options = {
+    "closeButton": true,
+    "positionClass": "toast-bottom-left",
+    "onclick": null,
+    "showDuration": "300",
+    "hideDuration": "1000",
+    "timeOut": "3000",
+    "extendedTimeOut": "1000",
+    "showEasing": "swing",
+    "hideEasing": "linear",
+    "showMethod": "fadeIn",
+    "hideMethod": "fadeOut"
+  }
 
 //CREA EDITOR DE TEXTO CON DRAG & DROP
 var editor = new FroalaEditor('#editor')
@@ -64,15 +69,11 @@ $("#Tojson").click(function() {
     var doocument={}
     doocument["Title"]=titulo;
     doocument["Body"]= cuerpo;
-    dat.push(doocument);
-    // console.log(texto);
-    // console.log(cuerpo);
-    // console.log(titulo);
-    // console.log(titulodoc);
-    
+    dat.push(doocument);    
     var jdon = JSON.stringify(dat);
     
     descargarJson(jdon,titulodoc);
+    toastr.success('Archivo Json descargado') 
   });  
 
 function descargarODT(obj,name){
@@ -95,10 +96,10 @@ $("#ODT").click(function() {
     for(var i = 0; i < titulo.split(" ").length; i++){
         titulodoc = titulodoc.replace(" ","_");
     }
-    
     var jdon = JSON.stringify(texto);
     
     descargarODT(jdon,titulodoc);
+    toastr.success('Archivo ODT descargado')
 });
 
 $("#save").on('submit', function(event) {
@@ -124,6 +125,7 @@ $("#save").on('submit', function(event) {
           'Content-Type': 'application/json'
         }
       })
+    toastr.success('Texto guardado en la base de datos')
 });
 
 
@@ -131,7 +133,6 @@ $("#delete").on('submit', function(event) {
     event.preventDefault();    
     console.log(document.querySelector("input[id='delete']").value);
     var id = document.querySelector("input[id='delete']").value
-    
     fetch("/delete", {
         method: 'POST',
         body: JSON.stringify({"IDdelete":id}),
@@ -139,6 +140,7 @@ $("#delete").on('submit', function(event) {
             'Content-Type': 'application/json'
           }
       })
+    toastr.success('Json borrado con éxito!')  
 });
 
 $("#formjson").on('submit', function(event) {
@@ -150,9 +152,13 @@ $("#formjson").on('submit', function(event) {
         method: 'POST',
         body: formData
       })
+    toastr.success('Archivo Json cargado con éxito!') 
 });
 
-
+$("#selectID").change(function(){
+    globalThis.ID = $("#selectID option:selected").val();
+    $('#inputID').val(ID);
+})
 
 $("#tags").change(function(){
     $("#tag_documento").hide();
@@ -185,17 +191,6 @@ $("#tag_desarrollo").change(function(){
 })
 
 $("#deletebutton").click(function() {
-    if(op == 'parrafo' || op == 'titulo_parrafo'){
-        $("#tag_desarrollo option:selected").remove();
-    }else if(op =='categoria'|| op=='desc_categoria'){
-        $("#tags option:selected").remove();    
-    }else{
-        $("#tag_documento option:selected").remove();   
-    }
-    $("#contenedor").text('');
-});
-
-$("#deletebutton").click(function() {
     if(op == 'categoria' || op == 'desc_categoria' ||op == 'documentos'){
         $("#tags option:selected").remove();
         if(op == 'documentos'){
@@ -211,8 +206,10 @@ $("#deletebutton").click(function() {
         $("#tags_desarrollo option:selected").remove();   
     }
     $("#contenedor").text('');
+    toastr.info('Tag eliminado con exito')
 });
 
+    
 $( "#doc" ).click(function() {
     $('#contenedor').html(
         data.documentos[0].titulo+'<br><br>'+
@@ -237,6 +234,10 @@ $( "#json" ).click(function() {
         data.documentos[0].desarrollo[0].titulo_parrafo+'<br><br>'+
         data.documentos[0].desarrollo[0].parrafo);
 });
+
+
+
+
 
 
   
