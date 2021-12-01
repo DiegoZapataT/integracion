@@ -41,7 +41,7 @@ function descargarJson(obj,name){
     var downloadNode = document.createElement('a');
     downloadNode.setAttribute("href", dataStr);
     downloadNode.setAttribute("download", name + ".json");
-    document.body.appendChild(downloadNode);//para firefox
+    document.body.appendChild(downloadNode);
     downloadNode.click();
     downloadNode.remove();
 }
@@ -75,12 +75,12 @@ $("#Tojson").click(function() {
     descargarJson(jdon,titulodoc);
   });  
 
-  function descargarODT(obj,name){
+function descargarODT(obj,name){
     var dataStr = "data:text/json;charset=utf-8,"+ encodeURIComponent(obj);
     var downloadNode = document.createElement('a');
     downloadNode.setAttribute("href", dataStr);
     downloadNode.setAttribute("download", name + ".odt");
-    document.body.appendChild(downloadNode);//para firefox
+    document.body.appendChild(downloadNode);
     downloadNode.click();
     downloadNode.remove();
 }
@@ -101,7 +101,7 @@ $("#ODT").click(function() {
     descargarODT(jdon,titulodoc);
 });
 
-  $("#save").on('submit', function(event) {
+$("#save").on('submit', function(event) {
     event.preventDefault();    
     var texto = []
     for (let node of document.getElementById("froala-editor").getElementsByTagName("P")) {  
@@ -154,9 +154,12 @@ $("#formjson").on('submit', function(event) {
       })
 });
 
+
+
 $("#tags").change(function(){
     $("#tag_documento").hide();
     $("#tag_desarrollo").hide();
+    globalThis.op = ($("#tags option:selected").val());
     var seleccion =($('option:selected', $(this)).text());            
     if (seleccion != 'documentos'){
         $('#contenedor').text(data[seleccion]);
@@ -167,6 +170,7 @@ $("#tags").change(function(){
 var doc_tag = data.documentos[0]
 $("#tag_documento").change(function(){
     $("#tag_desarrollo").hide();
+    globalThis.op = ($("#tag_documento option:selected").val());
     var tagsdoc =($('option:selected', $(this)).text());            
     if (tagsdoc != 'desarrollo'){
         $('#contenedor').text(doc_tag[tagsdoc]);
@@ -177,9 +181,21 @@ $("#tag_documento").change(function(){
 
 var des_tag = doc_tag.desarrollo[0];
 $("#tag_desarrollo").change(function(){
+    globalThis.op = ($("#tag_desarrollo option:selected").val());
     var tagsdes =($('option:selected', $(this)).text());            
         $('#contenedor').text(des_tag[tagsdes]);
 })
+
+$("#deletebutton").click(function() {
+    if(op == 'parrafo' || op == 'titulo_parrafo'){
+        $("#tag_desarrollo option:selected").remove();
+    }else if(op =='categoria'|| op=='desc_categoria'){
+        $("#tags option:selected").remove();    
+    }else{
+        $("#tag_documento option:selected").remove();   
+    }
+    $("#contenedor").text('');
+});
 
 $( "#doc" ).click(function() {
     $('#contenedor').html(

@@ -25,3 +25,10 @@ width: 100%;
     float: right;
     width: 65%;
   }
+
+#deletebutton {
+    background-image: url("/static/trash.png");
+    background-size: 32px 32px;
+    height: 35px;  
+    width: 35px;
+}

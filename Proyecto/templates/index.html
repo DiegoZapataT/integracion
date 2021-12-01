@@ -42,7 +42,7 @@
                                 <option selected>Elige...</option>
                                 {%for key in key%}
                                     {%if key != "_id" %}
-                                        <option>{{key}}</option>
+                                        <option value= {{key}}>{{key}}</option>
                                     {% endif %}
                                 {%endfor%}
                             </select>
@@ -57,7 +57,7 @@
                                 <option selected>...</option>
                                 {%for key in key_doc%}
                                     {%if key != "_id" %}
-                                        <option>{{key}}</option>
+                                        <option value= {{key}}>{{key}}</option>
                                     {% endif %}
                                 {%endfor%}
                             </select>
@@ -68,11 +68,11 @@
                     <form method="GET">
                         <div class="form-group col-md-4">
                             <label for="tag_des">Tags desarrollo:</label>
-                            <select id="tag_des" class="form-control">
+                            <select  id="tag_des" class="form-control">
                                 <option selected>...</option>
                                 {%for key in key_des%}
                                     {%if key != "_id" %}
-                                        <option>{{key}}</option>
+                                        <option value= {{key}}>{{key}}</option>
                                     {% endif %}
                                 {%endfor%}
                             </select>
@@ -89,7 +89,8 @@
                     <div class="draggable" id = "caja" draggable="true">
                         <br>
                         <p id="contenedor"></p>
-                    </div>   
+                    </div>  
+                    <button id="deletebutton"></button>
                     <div>
                         <br>
                         <form enctype="multipart/form-data" id = "formjson">
@@ -123,8 +124,8 @@
                         <p></p>
                     </div>
                         <button id='guardar'class="btn btn-secondary">Guardar como JSON</button> 
-                        <button id= 'ODT' type="button" value="ODT">Descargar como</button> 
-                        <button id='Tojson'class="btn btn-secondary">Descargar como JSON</button> 
+                        <button id= 'ODT'   class="btn btn-secondary">Descargar como ODT</button> 
+                        <button id='Tojson' class="btn btn-secondary">Descargar como JSON</button> 
                 </form>
             </div>
         </div>
