@@ -16,8 +16,10 @@
     <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
     
     
+    
     <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.css">
     <link rel="stylesheet" href="/static/css/toastr.css">
+    
     <link rel="stylesheet" href="/static/css/style.css">
 
         
@@ -38,7 +40,7 @@
                         {%endfor%} 
                         </select>
                         <input id="inputID" type="hidden" min="1" name="ID" > 
-                        <input id='botonID' type="submit" value="Enviar">
+                        <input id='botonID' class="btn btn-info text-white" type="submit" value="Enviar">
                     </form>
                 </div>
                 <br>
@@ -107,9 +109,10 @@
                         
                             Importar Json:
                         
-                            <input type="file" name="archivosubido" id = "inputjson">
+                            <input type="file" class="btn btn-info text-white" name="archivosubido" id = "inputjson">
+                            <br><br>
                         
-                            <input type="submit" value="Enviar">
+                            <input type="submit" class="btn btn-info text-white" value="Enviar">
                         
                             </p>
                         
@@ -117,7 +120,7 @@
                         <div>
                             <form id="delete">
                                 <p>ID a borrar: <br> <input min="1" id="delete"></p>
-                                <input  type="submit" name="IDdelete">
+                                <input value="Eliminar"  type="submit" class="btn btn-info text-white" name="IDdelete">
                             </form>
                         </div>
                     </div>
@@ -132,11 +135,11 @@
                         <p></p>
                     </div>
                         <br>
-                        <button id='guardar'class="btn btn-secondary">Guardar como JSON</button> 
+                        <button id='guardar'class="btn btn-info text-white">Guardar como JSON</button> 
                 </form>
                         <br>
-                        <button id= 'ODT'   class="btn btn-secondary">Descargar como ODT</button> 
-                        <button id='Tojson' class="btn btn-secondary">Descargar como JSON</button>       
+                        <button id= 'ODT'   class="btn btn-info text-white">Descargar como ODT</button> 
+                        <button id='Tojson' class="btn btn-info text-white">Descargar como JSON</button>       
             </div>
         </div>
     </div>  
