@@ -101,7 +101,7 @@
                         
                             <input type="file" name="archivosubido" id = "inputjson">
                         
-                            <input type="submit" value="Enviar datos">
+                            <input type="submit" value="Enviar">
                         
                             </p>
                         
@@ -123,17 +123,19 @@
                     <div id="froala-editor">
                         <p></p>
                     </div>
+                        <br>
                         <button id='guardar'class="btn btn-secondary">Guardar como JSON</button> 
-                        <button id= 'ODT'   class="btn btn-secondary">Descargar como ODT</button> 
-                        <button id='Tojson' class="btn btn-secondary">Descargar como JSON</button> 
                 </form>
+                        <br>
+                        <button id= 'ODT'   class="btn btn-secondary">Descargar como ODT</button> 
+                        <button id='Tojson' class="btn btn-secondary">Descargar como JSON</button>       
             </div>
         </div>
     </div>  
 
     <div  id='data' data-data='{{data|tojson}}'></div>
 
-    <br>
+    <br><br>
         
     <footer>
         <p>Copyright &copy; <script>document.write(new Date().getFullYear());</script> UCT</p>
