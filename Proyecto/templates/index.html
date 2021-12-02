@@ -25,125 +25,112 @@
         
 </head>
 <body>
-
     <div style="background-color: #00acf7; padding: 20px;"><h1 style="color: #ffffff;" class="text-center">Proyecto: Editor de texto</h1></div>
     <br><br>
-    <div class="container">
-        <div class="row">
-            <div class="col-4 d-felx flex-column justify-content-center">
-                <div>
-                    <form action="/" method="POST">
-                        <select id="selectID">
-                        <option selected>Seleccione ID</option>
-                        {%for ID in ID%}
-                            <option value= {{ID}}>{{ID}}</option>
-                        {%endfor%} 
-                        </select>
-                        <input id="inputID" type="hidden" min="1" name="ID" > 
-                        <input id='botonID' class="btn btn-info text-white" type="submit" value="Enviar">
-                    </form>
-                </div>
-                <br>
-                <div>
-                    <form method="GET">
-                        <div class="form-group col-md-4">
-                            <label for="tags">Tags:</label>
-                            <select id="tags" class="form-control">
-                                <option selected>Elige...</option>
-                                {%for key in key%}
-                                    {%if key != "_id" %}
-                                        <option value= {{key}}>{{key}}</option>
-                                    {% endif %}
-                                {%endfor%}
-                            </select>
-                        </div>
-                    </form>    
-                </div>  
-                <div id="tag_documento">
-                    <form method="GET">
-                        <div class="form-group col-md-4">
-                            <label for="tag_doc">Tags documento:</label>
-                            <select id="tag_doc" class="form-control">
-                                <option selected>...</option>
-                                {%for key in key_doc%}
-                                    {%if key != "_id" %}
-                                        <option value= {{key}}>{{key}}</option>
-                                    {% endif %}
-                                {%endfor%}
-                            </select>
-                        </div>
-                    </form>    
-                </div> 
-                <div id="tag_desarrollo">
-                    <form method="GET">
-                        <div class="form-group col-md-4">
-                            <label for="tag_des">Tags desarrollo:</label>
-                            <select  id="tag_des" class="form-control">
-                                <option selected>...</option>
-                                {%for key in key_des%}
-                                    {%if key != "_id" %}
-                                        <option value= {{key}}>{{key}}</option>
-                                    {% endif %}
-                                {%endfor%}
-                            </select>
-                        </div>
-                    </form>    
-                </div>     
-                <hr>	
-                <div class="row">
-                    <div class="col d-flex justify-content-around">
-                        <button type="button" class="btn btn-info text-white" id="doc">Documentos</button>
-                        <button type="button" class="btn btn-info text-white" id="des">Desarrollo</button>
-                        <button type="button" class="btn btn-info text-white" id="json">Json Completo</button>
-                    </div>
-                    <div class="draggable" id = "caja" draggable="true">
-                        <br>
-                        <p id="contenedor"></p>
-                    </div>  
-                    <button id="deletebutton"></button>
-                    <div>
-                        <br>
-                        <form enctype="multipart/form-data" id = "formjson">
-
-                            <p>
-                        
-                            Importar Json:
-                        
-                            <input type="file" class="btn btn-info text-white" name="archivosubido" id = "inputjson">
-                            <br><br>
-                        
-                            <input type="submit" class="btn btn-info text-white" value="Enviar">
-                        
-                            </p>
-                        
-                        </form>   
-                        <div>
-                            <form id="delete">
-                                <p>ID a borrar: <br> <input min="1" id="delete"></p>
-                                <input value="Eliminar"  type="submit" class="btn btn-info text-white" name="IDdelete">
-                            </form>
-                        </div>
-                    </div>
-                </div>    
-            </div>
-            <br><br><br>
-
-            <!-- EDITOR DE TEXTO -->
-            <div id="contenedoreditor">
-                <form id='save'>
-                    <div id="froala-editor">
-                        <p></p>
-                    </div>
-                        <br>
-                        <button id='guardar'class="btn btn-info text-white">Guardar como JSON</button> 
+    <div class="row">
+        <div class="col-md-4 offset-md-1">
+            <div>
+                <form action="/" method="POST">
+                    <select id="selectID" class="form-select">
+                    <option selected disabled>Seleccione ID</option>
+                    {%for ID in ID%}
+                        <option value= {{ID}}>{{ID}}</option>
+                    {%endfor%} 
+                    </select>
+                    <input id="inputID" type="hidden" min="1" name="ID" > 
+                    <input id='botonID' class="btn btn-info text-white" type="submit" value="Enviar">
                 </form>
-                        <br>
-                        <button id= 'ODT'   class="btn btn-info text-white">Descargar como ODT</button> 
-                        <button id='Tojson' class="btn btn-info text-white">Descargar como JSON</button>       
             </div>
-        </div>
-    </div>  
+            <br>
+            <div>
+                <form method="GET">
+                    <div class="form-group col-md-4">
+                        <label for="tags">Tags:</label>
+                        <select id="tags" class="form-select">
+                            <option selected hidden>Seleccione</option>
+                            {%for key in key%}
+                                {%if key != "_id" %}
+                                    <option value= {{key}}>{{key}}</option>
+                                {% endif %}
+                            {%endfor%}
+                        </select>
+                    </div>
+                </form>    
+            </div>  
+            <div id="tag_documento">
+                <form method="GET">
+                    <div class="form-group col-md-4">
+                        <label for="tag_doc">Tags documento:</label>
+                        <select id="tag_doc" class="form-select">
+                            <option selected hidden>Seleccione</option>
+                            {%for key in key_doc%}
+                                {%if key != "_id" %}
+                                    <option value= {{key}}>{{key}}</option>
+                                {% endif %}
+                            {%endfor%}
+                        </select>
+                    </div>
+                </form>    
+            </div> 
+            <div id="tag_desarrollo">
+                <form method="GET">
+                    <div class="form-group col-md-4">
+                        <label for="tag_des">Tags desarrollo:</label>
+                        <select  id="tag_des" class="form-control">
+                            <option selected hidden>Seleccione</option>
+                            {%for key in key_des%}
+                                {%if key != "_id" %}
+                                    <option value= {{key}}>{{key}}</option>
+                                {% endif %}
+                            {%endfor%}
+                        </select>
+                    </div>
+                </form>    
+            </div>     
+            <hr>	
+            <div class="col d-flex justify-content-around mb-3">
+                <button type="button" class="btn btn-info text-white" id="doc">Documentos</button>
+                <button type="button" class="btn btn-info text-white" id="des">Desarrollo</button>
+                <button type="button" class="btn btn-info text-white" id="json">Json Completo</button>
+            </div>
 
+            <div class="input-group mb-3">
+                <button class="input-group-text" id="deletebutton"></button>
+                <div class=" form-control draggable" id="caja" draggable="true"><br><p id="contenedor"></p></div>  
+            </div>
+
+            <form enctype="multipart/form-data" id = "formjson">
+                <label for="basic-url" class="form-label"> Importar Json:</label>
+                <div class="input-group mb-3">
+                    <input type="file" class="form-control" name="archivosubido" id ="inputjson">
+                    <input type="submit" class="btn btn-info text-white input-group-text" id="basic-addon3" value="Cargar"></input>
+                </div> 
+            </form>
+            <form id="delete">
+                <label for="basic-url" class="form-label"> Eliminar data:</label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text" id="basic-addon3">ID</span>
+                    <input min="1" id="delete" class="form-control" aria-describedby="basic-addon3">
+                    <input value="Eliminar"  type="submit" class="btn btn-info text-white" name="IDdelete">
+                </div>
+            </form> 
+            <div class="col d-flex justify-content-around mb-3">
+                <button id= 'ODT'   class="btn btn-info text-white">Descargar como ODT</button> 
+                <button id='Tojson' class="btn btn-info text-white">Descargar como JSON</button>
+            </div>           
+        </div>
+    </div>
+        <!------------ EDITOR DE TEXTO ---------->
+    <div id="contenedoreditor" class="text-center">
+        <form id='save'>
+            <div id="froala-editor"><p></p></div>
+                <br>
+            <button id='guardar 'class="btn btn-info text-white">Guardar como JSON</button> 
+        </form>    
+        <div id="space"></div> 
+    </div>    
+        
+    <!-- DATA MONGODB -->
     <div  id='data' data-data='{{data|tojson}}'></div>
 
     <br><br>

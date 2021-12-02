@@ -156,7 +156,7 @@ $("#formjson").on('submit', function(event) {
 });
 
 $("#selectID").change(function(){
-    globalThis.ID = $("#selectID option:selected").val();
+    globalThis.ID = $("#selectID option:selected").val();   
     $('#inputID').val(ID);
 })
 
